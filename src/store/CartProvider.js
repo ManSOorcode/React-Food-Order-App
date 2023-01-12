@@ -8,6 +8,15 @@ const defaultCartState = {
 };
 
 const cartReducer = (state, action) => {
+  if (action.type === "READD") {
+    const updatedItems = state.items.concat(...action.item);
+    // console.log(typeof updatedItems[0].price);
+    // updatedItems.map((el) => console.log(el));
+    return {
+      items: updatedItems,
+      totalAmount: 0,
+    };
+  }
   if (action.type === "ADD") {
     const updatedTotalAmount =
       state.totalAmount + action.item.price * action.item.amount;
@@ -54,17 +63,6 @@ const cartReducer = (state, action) => {
       totalAmount: updatedTotalAmount,
     };
   }
-
-  if (action.type === "READD") {
-    const updatedItems = state.items.concat(...action.item);
-    console.log(typeof updatedItems[0].price);
-    // updatedItems.map((el) => console.log(el));
-    return {
-      items: updatedItems,
-      totalAmount: 0,
-    };
-  }
-
   return defaultCartState;
 };
 
@@ -73,6 +71,9 @@ const CartProvider = (props) => {
     cartReducer,
     defaultCartState
   );
+  const dummyMealHandler = (item) => {
+    dispatchCartAction({ type: "READD", item: item });
+  };
 
   const addItemToCartHandler = (item) => {
     dispatchCartAction({ type: "ADD", item: item });
@@ -82,16 +83,13 @@ const CartProvider = (props) => {
     dispatchCartAction({ type: "REMOVE", id: id });
   };
 
-  const dummyMealHandler = (item) => {
-    dispatchCartAction({ type: "READD", item: item });
-  };
-
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
+    reAddDummyMeal: dummyMealHandler,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
-    reAddDummyMeal: dummyMealHandler,
+    stateClone: true,
   };
 
   return (

@@ -19,6 +19,7 @@ const MealsSummary = () => {
         name: data[key].name,
         description: data[key].description,
         price: data[key].price,
+        amount: 0,
       });
     }
     console.log(data.m2);

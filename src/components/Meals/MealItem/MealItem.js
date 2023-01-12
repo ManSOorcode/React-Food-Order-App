@@ -8,13 +8,15 @@ const MealItem = (props) => {
   const cartCtx = useContext(CartContext);
 
   console.log(props);
-  const priceValue = cartCtx.items.map((meal) => {
-    return meal.price.toFixed(2);
-  });
+  // let priceValue;
+  // cartCtx.items.forEach((meal) => {
+  //   priceValue = meal.price.toFixed(2);
+  // });
 
-  console.log(priceValue);
-  // const price = `$${props.items[0].price.toFixed(2)}`;
-  console.log(cartCtx.items);
+  // console.log(priceValue);
+  const price = `$${props.price.toFixed(2)}`;
+  console.log(price);
+  // console.log(cartCtx.items);
 
   const addToCartHandler = (amount) => {
     cartCtx.addItem({
@@ -30,7 +32,8 @@ const MealItem = (props) => {
       <div>
         <h3>{props.name}</h3>
         <div className={classes.description}>{props.description}</div>
-        <div className={classes.price}>{priceValue}</div>
+        {/* <div className={classes.price}>{priceValue}</div> */}
+        <div className={classes.price}>{price}</div>
       </div>
       <div>
         <MealItemForm onAddToCart={addToCartHandler} />
