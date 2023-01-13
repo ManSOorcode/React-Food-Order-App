@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 
 import CartContext from "./cart-context";
 
@@ -67,6 +67,9 @@ const cartReducer = (state, action) => {
 };
 
 const CartProvider = (props) => {
+  const [beforeFetch, setFetchState] = useState(true);
+  const [afterFormSubmit, setFormSubmitState] = useState(false);
+
   const [cartState, dispatchCartAction] = useReducer(
     cartReducer,
     defaultCartState
@@ -89,7 +92,11 @@ const CartProvider = (props) => {
     reAddDummyMeal: dummyMealHandler,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
-    stateClone: true,
+    beforeFetch: beforeFetch,
+    setFetchState: setFetchState,
+
+    afterpost: afterFormSubmit,
+    setFormSubmitState: setFormSubmitState,
   };
 
   return (

@@ -71,10 +71,13 @@ const Cart = (props) => {
   return (
     <Modal onClose={props.onClose}>
       {!checkoutState && cartItems}
-      <div className={classes.total}>
-        <span>Total Amount</span>
-        <span>{totalAmount}</span>
-      </div>
+
+      {!cartCtx.afterpost && (
+        <div className={classes.total}>
+          <span>Total Amount</span>
+          <span>{totalAmount}</span>
+        </div>
+      )}
       {/* {console.log("lol")} */}
       {checkoutState && (
         <Checkout onCancel={props.onClose} onReturn={returnHandler} />
