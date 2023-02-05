@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
@@ -11,6 +11,8 @@ const Cart = (props) => {
 
   const [checkoutState, setCheckOutState] = useState(false);
 
+  const [afterOrder, setAfterOrder] = useState(!props.onValue);
+
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
 
@@ -22,7 +24,7 @@ const Cart = (props) => {
     cartCtx.addItem(item);
   };
 
-  console.log(cartCtx);
+  // console.log(cartCtx);
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -45,15 +47,11 @@ const Cart = (props) => {
   const formCheckoutHandler = () => {
     console.log("hello");
     setCheckOutState(true);
-
-    // conditionForForm = cartCtx.stateClone;
-    // console.log(conditionForForm);
   };
 
   const returnHandler = () => {
     setCheckOutState(false);
   };
-  // cartCtx.stateClone = false;
 
   const cartButton = (
     <div className={classes.actions}>
@@ -68,33 +66,46 @@ const Cart = (props) => {
     </div>
   );
 
+  // console.log(props.onValue);
+
+  const onOrderSubmitehandler = (value) => {
+    setAfterOrder(value);
+  };
+
+  // const onCancelHandler = () => {
+  //   setAfterOrder(false);
+  // };
+
   return (
     <Modal onClose={props.onClose}>
       {!checkoutState && cartItems}
+      {!checkoutState && cartButton}
 
-      {!cartCtx.afterpost && (
-        <div className={classes.total}>
-          <span>Total Amount</span>
-          <span>{totalAmount}</span>
+      {afterOrder && (
+        <div className={classes.actions}>
+          <p>Your Order 🍴 is placed 🚴‍♂️ </p>
+          <button type="button" onClick={props.onClose}>
+            Cancel
+          </button>
         </div>
       )}
-      {/* {console.log("lol")} */}
-      {checkoutState && (
-        <Checkout onCancel={props.onClose} onReturn={returnHandler} />
-      )}
-      {!checkoutState && cartButton}
-      {/* {!conditionForForm && (
-        <div className={classes.actions}>
-          <button className={classes["button--alt"]} onClick={props.onClose}>
-            Close
-          </button>
-          {hasItems && (
-            <button className={classes.button} onClick={formCheckoutHandler}>
-              Order
-            </button>
+
+      {!afterOrder && (
+        <Fragment>
+          <div className={classes.total}>
+            <span>Total Amount</span>
+            <span>{totalAmount}</span>
+          </div>
+
+          {checkoutState && (
+            <Checkout
+              onCancel={props.onClose}
+              onReturn={returnHandler}
+              orderSubmiteState={onOrderSubmitehandler}
+            />
           )}
-        </div> */}
-      {/* )} */}
+        </Fragment>
+      )}
     </Modal>
   );
 };

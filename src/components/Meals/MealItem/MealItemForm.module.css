@@ -11,10 +11,26 @@
   padding: 0.25rem 2rem;
   border-radius: 20px;
   font-weight: bold;
+
+  transition: all 0.4s ease-in-out;
 }
 
 .form button:hover,
 .form button:active {
   background-color: #641e03;
   border-color: #641e03;
+}
+
+@media screen and (max-width: 580px) {
+  .form button {
+    padding: 0.2rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .form button {
+    padding: 0.15rem 0.8rem;
+    font-size: 0.6rem;
+  }
 }

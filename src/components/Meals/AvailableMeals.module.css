@@ -2,6 +2,7 @@
   max-width: 60rem;
   width: 90%;
   margin: 2rem auto;
+
   animation: meals-appear 1s ease-out forwards;
 }
 
@@ -9,6 +10,8 @@
   list-style: none;
   margin: 0;
   padding: 0;
+
+  transition: 0.4s all ease-in-out;
 }
 
 @keyframes meals-appear {

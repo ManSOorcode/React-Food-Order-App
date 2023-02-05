@@ -20,12 +20,6 @@ const useInputs = (checkingValid) => {
     setEnterInputTouch(false);
   };
 
-  //   const guardFunction = () => {
-  //     if (!enterInputCheck) {
-  //       return;
-  //     }
-  //   };
-
   return {
     value: enterInput,
     isValid: enterInputCheck,

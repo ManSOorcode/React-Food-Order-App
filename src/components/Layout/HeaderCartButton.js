@@ -10,16 +10,9 @@ const HeaderCartButton = (props) => {
 
   const { items } = cartCtx;
 
-  console.log(items);
-
-  // if (items.length > 0) items.amount = 0;
-
   const numberOfCartItems = items.reduce((curNumber, item) => {
-    console.log(item, "lol");
     return curNumber + item.amount;
   }, 0);
-
-  console.log(numberOfCartItems);
 
   const btnClasses = `${classes.button} ${
     btnIsHighlighted ? classes.bump : ""

@@ -2,11 +2,9 @@ import React, { useState, useContext } from "react";
 import classes from "./Checkout.module.css";
 
 import useInputs from "../../hooks/use-input";
-import CartContext from "../../store/cart-context";
 
 const Checkout = (props) => {
-  const context = useContext(CartContext);
-  //   const [formSumbit, setformSumbit] = useState(false);
+  const [formSumbit, setformSumbit] = useState(false);
   const {
     value: enterName,
     isValid: enterNameCheck,
@@ -76,13 +74,12 @@ const Checkout = (props) => {
     e.preventDefault();
     console.log("hello");
 
+    setformSumbit(true);
+
     nameInputBlurHandler();
     streetInputBlurHandler();
     postCodeInputBlurHandler();
     cityInputBlurHandler();
-
-    // guardNameFunction();
-    // guardEmailFunction();
 
     const userInfo = {
       fullName: enterName,
@@ -103,8 +100,6 @@ const Checkout = (props) => {
           },
         }
       );
-      //   setformSumbit(true);
-      context.setFormSubmitState(true);
 
       const data = await response.json();
       console.log(data);
@@ -116,82 +111,80 @@ const Checkout = (props) => {
     resetPostCodeHandler();
     resetCityHandler();
 
-    // resetEmailHandler();
+    props.orderSubmiteState(true);
   };
 
   return (
     <React.Fragment>
-      {!context.afterpost && (
-        <form className={classes.form} onSubmit={formSumbitHandler}>
-          <div className={inValidNameClasses}>
-            <label htmlFor="name">Your Name</label>
-            <input
-              type="text"
-              id="name"
-              value={enterName}
-              onChange={inputNamehandler}
-              onBlur={nameInputBlurHandler}
-            />
-          </div>
-          {nameInputIsInValid && <p>Name Input must not be Empty </p>}
+      <form className={classes.form} onSubmit={formSumbitHandler}>
+        <div className={inValidNameClasses}>
+          <label htmlFor="name">Your Name</label>
+          <input
+            type="text"
+            id="name"
+            value={enterName}
+            onChange={inputNamehandler}
+            onBlur={nameInputBlurHandler}
+          />
+        </div>
+        {nameInputIsInValid && (
+          <p className={classes.error}>Name Input must not be Empty </p>
+        )}
 
-          <div className={inValidStreetClasses}>
-            <label htmlFor="street">Street</label>
-            <input
-              type="text"
-              id="street"
-              value={enterStreet}
-              onChange={inputStreethandler}
-              onBlur={streetInputBlurHandler}
-            />
-          </div>
-          {streetInputIsInValid && <p>street Input must be Empty</p>}
+        <div className={inValidStreetClasses}>
+          <label htmlFor="street">Street</label>
+          <input
+            type="text"
+            id="street"
+            value={enterStreet}
+            onChange={inputStreethandler}
+            onBlur={streetInputBlurHandler}
+          />
+        </div>
+        {streetInputIsInValid && (
+          <p className={classes.error}>street Input must not be Empty</p>
+        )}
 
-          <div className={inValidPostCodeClasses}>
-            <label htmlFor="postal">Postal Code</label>
-            <input
-              type="text"
-              id="postal"
-              value={enterPostCode}
-              onChange={inputPostCodehandler}
-              onBlur={postCodeInputBlurHandler}
-            />
-          </div>
-          {postCodeInputIsInValid && <p>postal is less than 5</p>}
+        <div className={inValidPostCodeClasses}>
+          <label htmlFor="postal">Postal Code</label>
+          <input
+            type="text"
+            id="postal"
+            value={enterPostCode}
+            onChange={inputPostCodehandler}
+            onBlur={postCodeInputBlurHandler}
+          />
+        </div>
+        {postCodeInputIsInValid && (
+          <p className={classes.error}>postal is less than 5</p>
+        )}
 
-          <div className={inValidCityClasses}>
-            <label htmlFor="city">City</label>
-            <input
-              type="text"
-              id="city"
-              value={enterCity}
-              onChange={inputCityhandler}
-              onBlur={cityInputBlurHandler}
-            />
-          </div>
-          {cityInputIsInValid && <p>street Input must be Empty</p>}
+        <div className={inValidCityClasses}>
+          <label htmlFor="city">City</label>
+          <input
+            type="text"
+            id="city"
+            value={enterCity}
+            onChange={inputCityhandler}
+            onBlur={cityInputBlurHandler}
+          />
+        </div>
+        {cityInputIsInValid && (
+          <p className={classes.error}>city Input must not be Empty</p>
+        )}
 
-          <div className={classes.actions}>
-            <button className={classes.back} onClick={props.onReturn}>
-              Back
-            </button>
-            <button type="button" onClick={props.onCancel}>
-              Cancel
-            </button>
-            <button className={submitDisableClasses} disabled={!formIsValid}>
-              Confirm
-            </button>
-          </div>
-        </form>
-      )}
-      {context.afterpost && (
         <div className={classes.actions}>
-          <p>Your form is submited</p>
+          <button className={classes.back} onClick={props.onReturn}>
+            Back
+          </button>
           <button type="button" onClick={props.onCancel}>
             Cancel
           </button>
+          <button className={submitDisableClasses} disabled={!formIsValid}>
+            Confirm
+          </button>
         </div>
-      )}
+      </form>
     </React.Fragment>
   );
 };

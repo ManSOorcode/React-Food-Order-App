@@ -8,10 +8,10 @@ const CartContext = React.createContext({
   removeItem: (id) => {},
 
   beforeFetch: "",
-  setFetchCondition: () => {},
+  setFetchState: () => {},
 
-  afterpost: "",
-  setPostCondition: () => {},
+  afterpost: false,
+  setFormSubmit: () => {},
 });
 
 export default CartContext;
