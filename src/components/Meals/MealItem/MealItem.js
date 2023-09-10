@@ -7,7 +7,7 @@ import CartContext from "../../../store/cart-context";
 const MealItem = (props) => {
   const cartCtx = useContext(CartContext);
 
-  console.log(props);
+  // console.log(props);
   // let priceValue;
   // cartCtx.items.forEach((meal) => {
   //   priceValue = meal.price.toFixed(2);
