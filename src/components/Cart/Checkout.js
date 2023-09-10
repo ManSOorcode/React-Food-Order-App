@@ -90,7 +90,8 @@ const Checkout = (props) => {
 
     async function sendingData() {
       const response = await fetch(
-        "https://food-order-app-1cb35-default-rtdb.firebaseio.com/userData.json",
+        // "https://food-order-app-1cb35-default-rtdb.firebaseio.com/userData.json",
+        "https://new-food-order-59cf8-default-rtdb.firebaseio.com/userData.json",
         {
           method: "POST",
           body: JSON.stringify(userInfo),

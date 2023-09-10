@@ -44,7 +44,8 @@ const AvailableMeals = () => {
     // setIsLoading(false);
     const fetchTasks = async () => {
       const mealsResponse = await fetch(
-        "https://mansoor-food-order-app-default-rtdb.firebaseio.com/meals.json"
+        // "https://mansoor-food-order-app-default-rtdb.firebaseio.com/meals.json"
+        "https://new-food-order-59cf8-default-rtdb.firebaseio.com/meals.json"
       );
 
       if (!mealsResponse.ok) {
@@ -52,6 +53,8 @@ const AvailableMeals = () => {
       }
 
       const mealsData = await mealsResponse.json();
+
+      // console.log(mealsData.m1.price);
 
       const dummyData = [];
 
@@ -76,6 +79,7 @@ const AvailableMeals = () => {
     fetchTasks().catch((error) => {
       setIsLoading(false);
       setHttpError(error.message);
+      // console.log(error.message);
     });
   }, []);
 
@@ -94,10 +98,12 @@ const AvailableMeals = () => {
       </div>
     );
   }
+  // console.log(meals[0].price);
 
   // const ctx = useContext(CartContext);
   const mealsList = meals.map((meal) => (
     // const mealsList = DUMMY_MEALS.map((meal) => (
+
     <MealItem
       key={meal.id}
       id={meal.id}
