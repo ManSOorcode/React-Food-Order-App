@@ -44,8 +44,7 @@ const AvailableMeals = () => {
     // setIsLoading(false);
     const fetchTasks = async () => {
       const mealsResponse = await fetch(
-        // "https://mansoor-food-order-app-default-rtdb.firebaseio.com/meals.json"
-        "https://new-food-order-59cf8-default-rtdb.firebaseio.com/meals.json"
+        "https://cloud-kitchen-app-default-rtdb.asia-southeast1.firebasedatabase.app/meals.json"
       );
 
       if (!mealsResponse.ok) {
